@@ -9,9 +9,7 @@ const ExpensesForm = ({ onClick, onSubmit }) => {
   const [inputNumber, setInputNumber] = useState(0);
   const [inputDate, setInputDate] = useState(null);
 
-  //Обработчик изменения значения данных
   const getInputTextValue = (e) => {
-    //Обновляем при изменении значения ввода
     setInputText(e.target.value);
   };
 
@@ -23,7 +21,8 @@ const ExpensesForm = ({ onClick, onSubmit }) => {
     setInputDate(e.target.value);
   };
 
-  const submitHandler = () => {
+  const submitHandler = (event) => {
+    event.preventDefault()
     const product = {
       title: inputText,
       price: inputNumber,
@@ -39,7 +38,6 @@ const ExpensesForm = ({ onClick, onSubmit }) => {
   return (
     <form action="">
       <Form>
-        {/* Управляемый компонент с двухсторонней привязкой */}
         <Input
           type="text"
           placeholder="Заголовок"
@@ -72,7 +70,7 @@ const ExpensesForm = ({ onClick, onSubmit }) => {
   );
 };
 
-export default ExpensesForm;
+export default ExpensesForm
 
 const Form = styled.div`
   display: flex;

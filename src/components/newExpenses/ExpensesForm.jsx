@@ -1,76 +1,62 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
 import "./ExpensesForm.css";
 import styled from "styled-components";
 
 const ExpensesForm = ({ onClick, onSubmit }) => {
-  const [inputText, setInputText] = useState("");
-  const [inputNumber, setInputNumber] = useState(0);
-  const [inputDate, setInputDate] = useState(null);
+  const textRef = useRef();
+  const numberRef = useRef();
+  const dateRef = useRef();
 
-  const getInputTextValue = (e) => {
-    setInputText(e.target.value);
-  };
+  const addExpense = () => {
+    const text = textRef.current.value;
+    const number = numberRef.current.value;
+    const date = dateRef.current.value;
 
-  const getInputNumberValue = (e) => {
-    setInputNumber(e.target.value);
-  };
-
-  const getInputDateValue = (e) => {
-    setInputDate(e.target.value);
-  };
-
-  const submitHandler = (event) => {
-    event.preventDefault()
-    const product = {
-      title: inputText,
-      price: inputNumber,
-      date: inputDate,
-    };
+    const product = { text, number, date };
     onSubmit(product);
 
-    setInputText("");
-    setInputNumber("");
-    setInputDate("");
+    textRef.current.value = "";
+    numberRef.current.value = "";
+    dateRef.current.value = "";
   };
 
   return (
-    <form action="">
-      <Form>
-        <Input
-          type="text"
-          placeholder="Заголовок"
-          children="Заголовок"
-          value={inputText}
-          onChange={getInputTextValue}
-        />
-        <Input
-          type="number"
-          placeholder="Цена"
-          children="Цена"
-          value={inputNumber}
-          onChange={getInputNumberValue}
-        />
-        <Input
-          type="date"
-          placeholder="Датировать"
-          children="Датировать"
-          value={inputDate}
-          onChange={getInputDateValue}
-        />
-        <Btn>
-          <Button onClick={onClick} marginRight="15px">
-            Отмена
-          </Button>
-          <Button onClick={submitHandler}>Добавить расходы</Button>
-        </Btn>
-      </Form>
-    </form>
+    <>
+      <form action="">
+        <Form>
+          <Input
+            type="text"
+            placeholder="Заголовок"
+            children="Заголовок"
+            ref={textRef}
+          />
+          <Input
+            type="number"
+            placeholder="Цена"
+            children="Цена"
+            ref={numberRef}
+          />
+          <Input
+            type="date"
+            placeholder="Датировать"
+            children="Датировать"
+            ref={dateRef}
+          />
+          <Btn>
+            <Button onClick={onClick} marginRight="15px">
+              Отмена
+            </Button>
+            <Button onClick={addExpense}>Добавить расходы</Button>
+          </Btn>
+        </Form>
+      </form>
+    </>
   );
 };
 
-export default ExpensesForm
+export default ExpensesForm;
 
 const Form = styled.div`
   display: flex;

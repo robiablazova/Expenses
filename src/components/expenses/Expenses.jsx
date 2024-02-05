@@ -6,12 +6,14 @@ import styled from "styled-components";
 const Expenses = (props) => {
   const {data} = props
   return (
+  <>
     <DIV>
       {data.map((el) => {
         return <ExpensesCard el={el} key={el.id} onDelete={props.onDelete}/>;
       })}
       {props.children}
     </DIV>
+  </>
   );
 };
 

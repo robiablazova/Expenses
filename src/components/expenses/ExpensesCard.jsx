@@ -1,18 +1,43 @@
+import { useState } from "react";
 import React from "react";
 import "./ExpensesCard.css";
 import Button from "../UI/Button";
 import styled from "styled-components";
+import Modal from "../UI/Modal";
 
 const ExpensesCard = ({ el, onDelete }) => {
+
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const openModal = () => {
+    setModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setModalOpen(false)
+  }
+
+  const deleteButton = () => {
+    onDelete(el.id)
+    closeModal()
+  }
   return (
+ <>
     <Card>
       {/* <h2 className="date">{el.date}</h2> */}
       <Title>{el.title}</Title>
       <Item>
         <Price>{el.price}</Price>
       </Item>
-      <Button onClick={() => onDelete(el.id)}>Delete</Button>
+      <Button onClick={openModal}>Delete</Button>
+      <Modal isOpen={modalOpen} onClose={closeModal}>
+        <h2>DeleteExpense</h2>
+        <p>Are you sure you want to delete?</p>
+        <button onClick={deleteButton}>yes</button>
+        <button onClick={closeModal}>no</button>
+      </Modal>
     </Card>
+ </>
   );
 };
 
@@ -45,3 +70,4 @@ const Item = styled.div`
   align-items: center;
   justify-content: flex-end;
 `;
+//onClick={() => onDelete(el.id)}

@@ -5,6 +5,7 @@ import "./ExpensesForm.css";
 import styled from "styled-components";
 
 const ExpensesForm = ({ onClick, onSubmit }) => {
+
   const textRef = useRef();
   const numberRef = useRef();
   const dateRef = useRef();
